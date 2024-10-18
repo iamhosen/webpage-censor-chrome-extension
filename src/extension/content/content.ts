@@ -1,21 +1,9 @@
-// src/extension/content/content.ts
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log("Received message from popup:", request);
-
-  if (request.greeting === "Hello from Popup") {
-    alert(request.greeting);
-    sendResponse({ farewell: "Goodbye from Content Script!" });
-  }
-});
-
 type Maybe<T> = T | null;
 
-// content.js
+const censoredWords: string[] = [];
 
-let censoredWords = ["badword1", "badword2", "badword3"];
 const replacement = "****";
 
-// Function to censor text nodes
 function censorText(node: Node) {
   if (node.nodeType === Node.TEXT_NODE) {
     let text: Maybe<string> = node.nodeValue;
@@ -35,10 +23,38 @@ function censorText(node: Node) {
   }
 }
 
-// Initial censorship
-censorText(document.body);
+const censorWebpage = (node: Node) => {
+  let hasCensoredWords = false;
 
-// Set up MutationObserver for dynamic content
+  const checkForCensoredWords = (node: Node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      censoredWords.forEach((word) => {
+        if (node.nodeValue?.includes(word)) {
+          hasCensoredWords = true;
+        }
+      });
+    } else {
+      if (
+        node.nodeName !== "SCRIPT" &&
+        node.nodeName !== "STYLE" &&
+        node.nodeName !== "NOSCRIPT"
+      ) {
+        node.childNodes.forEach((child) => checkForCensoredWords(child));
+      }
+    }
+  };
+
+  checkForCensoredWords(node);
+
+  if (hasCensoredWords) {
+    document.body.remove();
+
+    setTimeout(() => {
+      alert("You have been banned from this website.");
+    }, 1000);
+  }
+};
+
 const observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     mutation.addedNodes.forEach((node) => {
@@ -52,21 +68,30 @@ observer.observe(document.body, {
   subtree: true,
 });
 
-// Load censored words from storage
-chrome.storage.sync.get(["censoredWords"], (result) => {
+chrome.storage.sync.get(["censoredWords", "censoredType"], (result) => {
   if (result.censoredWords) {
-    censoredWords = result.censoredWords;
-    // Re-censor the page with updated words
+    censoredWords.push(...result.censoredWords);
+  }
+
+  if (result.censoredType === "webpage") {
+    censorWebpage(document.body);
+  } else if (result.censoredType === "word") {
     censorText(document.body);
   }
 });
 
-// Listen for updates from options page
 chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
   if (request.action === "updateWords") {
-    censoredWords = request.words;
-    // Re-censor the page with updated words
-    censorText(document.body);
     sendResponse({ status: "Words updated" });
+
+    if (request.words?.length) {
+      censoredWords.push(...request.words);
+    }
+
+    if (request.type === "webpage") {
+      censorWebpage(document.body);
+    } else if (request.type === "word") {
+      censorText(document.body);
+    }
   }
 });

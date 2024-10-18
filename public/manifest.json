@@ -1,17 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "My Vite Chrome Extension",
+  "name": "Censorship",
   "version": "1.0.0",
-  "description": "A Chrome extension built with Vite, TypeScript, and Tailwind CSS.",
+  "description": "Censorship is a browser extension that allows you to censor words or even the whole webpage",
+  "author": "Hossein Amirhosseini",
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
   },
   "permissions": ["storage"],
-  "background": {
-    "service_worker": "assets/background.js"
-  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

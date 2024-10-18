@@ -7,17 +7,83 @@
     <title>Options</title>
     <link rel="stylesheet" href="../styles.css" />
   </head>
-  <body class="bg-white p-4">
-    <div>
-      <h1>Configure Censored Words</h1>
-      <textarea
-        id="words"
-        placeholder="Enter words to censor, separated by commas"
-      ></textarea>
-      <br />
-      <button id="save">Save</button>
-      <p id="status"></p>
+  <body
+    class="min-h-svh min-w-full flex items-center justify-center bg-gray-100 dark:bg-gray-900"
+  >
+    <div
+      class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="space-y-6" action="#">
+        <h5 class="text-xl font-medium text-gray-900 dark:text-white">
+          Censorship Settings
+        </h5>
+
+        <div>
+          <label
+            for="words"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Word to Censor</label
+          >
+          <textarea
+            id="words"
+            rows="4"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Enter words to censor. separate by comma (,)"
+          ></textarea>
+        </div>
+
+        <div>
+          <fieldset>
+            <legend class="sr-only">Censor Type</legend>
+
+            <div class="flex items-center mb-4">
+              <input
+                id="censor-type-1"
+                type="radio"
+                name="censor-type"
+                value="word"
+                class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                for="censor-type-1"
+                class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Censor by word
+              </label>
+            </div>
+
+            <div class="flex items-center">
+              <input
+                id="censor-type-2"
+                type="radio"
+                name="censor-type"
+                value="webpage"
+                class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                for="censor-type-2"
+                class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Censor the whole page
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <button
+          id="save"
+          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Save
+        </button>
+
+        <div
+          id="status"
+          class="text-sm font-medium text-gray-500 dark:text-gray-300"
+        ></div>
+      </div>
     </div>
+
     <script type="module" src="options.ts"></script>
   </body>
 </html>

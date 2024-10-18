@@ -9,10 +9,6 @@ export default defineConfig({
       input: {
         popup: resolve(__dirname, "src/extension/popup/popup.html"),
         options: resolve(__dirname, "src/extension/options/options.html"),
-        background: resolve(
-          __dirname,
-          "src/extension/background/background.ts"
-        ),
         content: resolve(__dirname, "src/extension/content/content.ts"),
       },
       output: {
@@ -25,10 +21,6 @@ export default defineConfig({
           targets: [
             { src: "src/extension/manifest.json", dest: "dist" },
             { src: "src/extension/icons/*", dest: "dist/icons" },
-            {
-              src: "src/extension/background/background.js",
-              dest: "dist/background",
-            },
             { src: "src/extension/content/content.js", dest: "dist/content" },
           ],
           hook: "writeBundle",
