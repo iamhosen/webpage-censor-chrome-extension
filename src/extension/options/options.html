@@ -8,8 +8,16 @@
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body class="bg-white p-4">
-    <h1 class="text-xl font-bold">Options</h1>
-    <p class="mt-2">Configure your extension settings here.</p>
+    <div>
+      <h1>Configure Censored Words</h1>
+      <textarea
+        id="words"
+        placeholder="Enter words to censor, separated by commas"
+      ></textarea>
+      <br />
+      <button id="save">Save</button>
+      <p id="status"></p>
+    </div>
     <script type="module" src="options.ts"></script>
   </body>
 </html>

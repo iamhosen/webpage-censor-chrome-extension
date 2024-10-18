@@ -8,7 +8,7 @@
     "48": "icon.png",
     "128": "icon.png"
   },
-  "permissions": [],
+  "permissions": ["storage"],
   "background": {
     "service_worker": "assets/background.js"
   },
