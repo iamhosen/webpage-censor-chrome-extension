@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "My Vite Chrome Extension",
+  "version": "1.0.0",
+  "description": "A Chrome extension built with Vite, TypeScript, and Tailwind CSS.",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": [],
+  "background": {
+    "service_worker": "assets/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["assets/content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "src/extension/popup/popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "options_page": "src/extension/options/options.html"
+}

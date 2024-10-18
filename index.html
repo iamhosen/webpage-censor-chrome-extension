@@ -9,9 +9,14 @@
   <body>
     <div id="app">
       <div>
-        <h1 class="text-3xl font-bold underline text-right text-blue-500">
-          Hello, Vite + Vanilla TypeScript + Tailwind CSS!
-        </h1>
+        <h1>Configure Censored Words</h1>
+        <textarea
+          id="words"
+          placeholder="Enter words to censor, separated by commas"
+        ></textarea>
+        <br />
+        <button id="save">Save</button>
+        <p id="status"></p>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
